@@ -1,6 +1,6 @@
 <?php 
 
-namespace Package\Abstract;
+namespace DevxPackage\Abstract;
 
 use Illuminate\Database\Eloquent\Model;
 
