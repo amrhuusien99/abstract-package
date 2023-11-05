@@ -1,0 +1,21 @@
+{
+    "name": "devx/abstract",
+    "description": "this package for get abstract class",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "amrhuusien99",
+            "email": "amrhuusien99@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Devx\\Abstract\\": "src/"
+        }
+    }
+}
