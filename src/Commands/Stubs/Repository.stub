@@ -3,7 +3,7 @@
 namespace App\Http\Repositories\Eloquent;
 
 use App\Models\$NAME;
-use App\Http\Repositories\AbstractRepository;
+use DevxPackage\AbstractRepository;
 
 class $NAMERepository extends AbstractRepository
 {

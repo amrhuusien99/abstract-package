@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Repositories\Eloquent\Admin;
+
+use App\Models\Admin;
+use App\Http\Repositories\AbstractRepository;
+use App\Http\ServicesLayer\Admin\AdminServices\AdminAuthService;
+
+class AuthRepository extends AbstractRepository
+{
+
+    protected $model;
+    protected $adminAuthService;
+
+    public function __construct(Admin $model, AdminAuthService $adminAuthService)
+    {
+        $this->model = $model;
+        $this->adminAuthService = $adminAuthService;
+    }
+
+    public function crudName(): string
+    {
+        return '';
+    }
+
+    public function login()
+    {
+        return $this->adminAuthService->login();
+    }
+
+    public function check_login($request)
+    {
+        return $this->adminAuthService->check_login($request);
+    }
+
+    public function logout()
+    {
+        return $this->adminAuthService->logout();
+    }
+
+}

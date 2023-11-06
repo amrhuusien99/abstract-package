@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::group([ 'namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin' ], function(){
+        
+    // login routes
+    Route::get('login', 'AuthController@login')->name('admin/login');
+    Route::post('login', 'AuthController@check_login')->name('admin/check-login');
+    
+    Route::group(['middleware' => 'adminLogin'],function(){
+        
+        Route::get('logout', 'AuthController@logout')->name('admin/logout');
+
+        // admin routes
+        Route::get('admins/info', 'AdminController@info')->name('admin/admins/info');
+        Route::post('admins/info-update', 'AdminController@info_update')->name('admin/admins/info-update');
+        Route::post('admins/change-password', 'AdminController@change_password')->name('admin/admins/change-password');
+        
+        Route::get('admins/index/{offset?}/{limit?}', 'AdminController@index')->name('admin/admins/index');
+        Route::get('admins/create', 'AdminController@create')->name('admin/admins/create');
+        Route::post('admins/create', 'AdminController@store')->name('admin/admins/store');
+        Route::get('admins/activate', 'AdminController@activate')->name('admin/admins/activate');
+        Route::get('admins/delete', 'AdminController@delete')->name('admin/admins/delete');
+        Route::post('admins/pagination/{offset?}/{limit?}', 'AdminController@pagination')->name('admin/admins/pagination');
+        Route::post('admins/search', 'AdminController@search')->name('admin/admins/search');
+        Route::get('admins/archives/{offset?}/{limit?}', 'AdminController@archives')->name('admin/admins/archives');
+        Route::get('admins/back', 'AdminController@back')->name('admin/admins/back');
+        Route::post('admins/pagination/archives/{offset?}/{limit?}', 'AdminController@archivesPagination')->name('admin/admins/pagination/archives');
+        Route::post('admins/search/archives', 'AdminController@archivesSearch')->name('admin/admins/search/archives');
+
+        
+      	//ROUTEFROMCOMMANDLINE
+
+    });
+});
