@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace DevxPackage\Console\Commands;
 
 class MakeMigration extends FactoryFileCommand
 {

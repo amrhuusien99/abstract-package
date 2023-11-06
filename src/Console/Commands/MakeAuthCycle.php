@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace DevxPackage\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -44,9 +44,9 @@ class MakeAuthCycle extends Command
 
     function makeRoute()
     {
-        $file_path = base_path("app/Models/") . "Admin.php";
+        $file_path = base_path("routes/") . "admin.php";
         $this->makeDir(dirname($file_path));
-        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminModel.stub", []);
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminRoute.stub", []);
         $this->file->put($file_path, $file_content);
     }
 
@@ -109,9 +109,30 @@ class MakeAuthCycle extends Command
 
     function makeAuthMiddleware()
     {
-        $file_path = base_path("App\Http\Middleware/") . "AdminLogin.php";
+        $file_path = base_path("App/Http/Middleware/") . "AdminLogin.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLoginMiddleware.stub", []);
+        $this->file->put($file_path, $file_content);
+    }
+
+    function makeAdminRequest()
+    {
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminStoreRequest.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminStoreRequest.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminUpdateRequest.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminUpdateRequest.stub", []);
+        $this->file->put($file_path, $file_content);
+    }
+
+    function makeAdminAuthRequest()
+    {
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminLoginRequest.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminAuthRequest.stub", []);
         $this->file->put($file_path, $file_content);
     }
 
@@ -126,6 +147,8 @@ class MakeAuthCycle extends Command
         $this->makeAuthRepository();
         $this->makeAuthServices();
         $this->makeAuthMiddleware();
-        $this->info('created has been done, make admin guard, register admin middleware in, take blade file and seeder file');
+        $this->makeAdminRequest();
+        $this->makeAdminAuthRequest();
+        $this->info('created has been done, make admin guard, register admin middleware, take blade file and seeder file');
     }
 }
