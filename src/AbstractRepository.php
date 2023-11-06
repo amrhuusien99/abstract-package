@@ -12,7 +12,7 @@ abstract class AbstractRepository
 
     public function __construct(Model $model)
     {
-        $this->model = $model; 
+        $this->model = $model;
     }
 
     public function getAll()
