@@ -3,7 +3,7 @@
 namespace App\Http\Repositories\Eloquent\Admin;
 
 use App\Models\Admin;
-use App\Http\Repositories\AbstractRepository;
+use DevxPackage\AbstractRepository;
 
 class AdminRepository extends AbstractRepository
 {

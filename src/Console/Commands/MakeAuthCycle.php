@@ -110,7 +110,7 @@ class MakeAuthCycle extends Command
 
     function makeAuthServices()
     {
-        $file_path = base_path("App/Http/ServicesLayer/Admin/AdminServices/") . "AdminAuthService.php";
+        $file_path = base_path("app/Http/ServicesLayer/Admin/AdminServices/") . "AdminAuthService.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminAuthServices.stub", []);
         $this->file->put($file_path, $file_content);
@@ -118,7 +118,7 @@ class MakeAuthCycle extends Command
 
     function makeAuthMiddleware()
     {
-        $file_path = base_path("App/Http/Middleware/") . "AdminLogin.php";
+        $file_path = base_path("app/Http/Middleware/") . "AdminLogin.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLoginMiddleware.stub", []);
         $this->file->put($file_path, $file_content);
@@ -161,6 +161,7 @@ class MakeAuthCycle extends Command
         $this->makeAdminAuthRequest();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
-        $this->info('created has been done, make admin guard, register admin middleware, take blade file and seeder file, make migrate and seeder');
+        app()->make(\App\Composer::class)->run(['require', 'laracasts/flash']);
+        $this->info('created has been done, make admin guard, register admin middleware, take auth file and asset files');
     }
 }
