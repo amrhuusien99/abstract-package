@@ -4,6 +4,7 @@ namespace DevxPackage\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 
 class MakeAuthCycle extends Command
 {
@@ -63,6 +64,14 @@ class MakeAuthCycle extends Command
         $file_path = base_path("database/migrations/") . "2023_10_19_000000_create_admins_table.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminMigration.stub", []);
+        $this->file->put($file_path, $file_content);
+    }
+
+    function makeSeeder()
+    {
+        $file_path = base_path("database/seeders/") . "AdminSeeder.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminSeeder.stub", []);
         $this->file->put($file_path, $file_content);
     }
 
@@ -141,6 +150,7 @@ class MakeAuthCycle extends Command
         $this->makeRoute();
         $this->makeModel();
         $this->makeMigration();
+        $this->makeSeeder();
         $this->makeController();
         $this->makeAuthController();
         $this->makeRepository();
@@ -149,6 +159,8 @@ class MakeAuthCycle extends Command
         $this->makeAuthMiddleware();
         $this->makeAdminRequest();
         $this->makeAdminAuthRequest();
+        Artisan::call('migrate');
+        Artisan::call('db:seed --class=AdminSeeder');
         $this->info('created has been done, make admin guard, register admin middleware, take blade file and seeder file, make migrate and seeder');
     }
 }
