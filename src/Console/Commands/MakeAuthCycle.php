@@ -36,7 +36,7 @@ class MakeAuthCycle extends Command
         $content = file_get_contents($file_path);
         foreach ($fileKeys as $key => $value) {
             $keys [] = $key;
-            $values [] = $value; 
+            $values [] = $value;
         }
         $template = str_replace($keys, $values, $content);
         return $template;
