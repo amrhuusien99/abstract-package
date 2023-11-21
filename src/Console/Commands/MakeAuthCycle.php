@@ -149,6 +149,6 @@ class MakeAuthCycle extends Command
         $this->makeAuthMiddleware();
         $this->makeAdminRequest();
         $this->makeAdminAuthRequest();
-        $this->info('created has been done, make admin guard, register admin middleware, take blade file and seeder file');
+        $this->info('created has been done, make admin guard, register admin middleware, take blade file and seeder file, make migrate and seeder');
     }
 }

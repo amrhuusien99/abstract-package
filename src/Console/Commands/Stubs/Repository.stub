@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Repositories\Eloquent;
+namespace App\Http\Repositories\Eloquent\Admin;
 
 use App\Models\$NAME;
 use DevxPackage\AbstractRepository;

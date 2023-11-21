@@ -11,7 +11,7 @@
         Route::post('$NORMALNAME/search', '$FILENAMEUSSINQULARController@search')->name('admin/$NORMALNAME/search');
         Route::get('$NORMALNAME/archives/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@archives')->name('admin/$NORMALNAME/archives');
         Route::get('$NORMALNAME/back', '$FILENAMEUSSINQULARController@back')->name('admin/$NORMALNAME/back');
-        Route::post('$NORMALNAME/pagination/archives/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@pagination')->name('admin/$NORMALNAME/pagination/archives');
-        Route::post('$NORMALNAME/search/archives', '$FILENAMEUSSINQULARController@search')->name('admin/$NORMALNAME/search/archives');
+        Route::post('$NORMALNAME/pagination/archives/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@archivesPagination')->name('admin/$NORMALNAME/pagination/archives');
+        Route::post('$NORMALNAME/search/archives', '$FILENAMEUSSINQULARController@archivesSearch')->name('admin/$NORMALNAME/search/archives');
 
         //ROUTEFROMCOMMANDLINE
