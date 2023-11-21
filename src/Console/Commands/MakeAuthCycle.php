@@ -44,7 +44,7 @@ class MakeAuthCycle extends Command
 
     function makeRoute()
     {
-        $file_path = base_path("routes/") . "admin.php";
+        $file_path = base_path("routes/") . "admin.php"; 
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminRoute.stub", []);
         $this->file->put($file_path, $file_content);
