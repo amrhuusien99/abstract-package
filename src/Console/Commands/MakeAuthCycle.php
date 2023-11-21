@@ -72,7 +72,7 @@ class MakeAuthCycle extends Command
         $file_path = base_path("database/seeders/") . "AdminSeeder.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminSeeder.stub", []);
-        $this->file->put($file_path, $file_content);
+        $this->file->put($file_path, $file_content); 
     }
 
 
