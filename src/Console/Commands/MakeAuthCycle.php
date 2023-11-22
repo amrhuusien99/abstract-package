@@ -124,6 +124,14 @@ class MakeAuthCycle extends Command
         $this->file->put($file_path, $file_content);
     }
 
+    function makeLimitRequestMiddleware()
+    {
+        $file_path = base_path("app/Http/Middleware/") . "LimitReq.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLimitRequestMiddleware.stub", []);
+        $this->file->put($file_path, $file_content);
+    }
+
     function makeAdminRequest()
     {
         $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminStoreRequest.php";
@@ -159,9 +167,9 @@ class MakeAuthCycle extends Command
         $this->makeAuthMiddleware();
         $this->makeAdminRequest();
         $this->makeAdminAuthRequest();
+        $this->makeLimitRequestMiddleware();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
-        app()->make(\App\Composer::class)->run(['require', 'laracasts/flash']);
-        $this->info('created has been done, make admin guard, register admin middleware, take auth file and asset files');
+        $this->info('created has been done, make admin guard, register provider commands and middlewares, take auth file and asset files, run laracasts/flash');
     }
 }

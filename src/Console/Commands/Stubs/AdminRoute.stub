@@ -19,7 +19,7 @@ Route::group([ 'namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin' 
     Route::get('login', 'AuthController@login')->name('admin/login');
     Route::post('login', 'AuthController@check_login')->name('admin/check-login');
     
-    Route::group(['middleware' => 'adminLogin'],function(){
+    Route::group(['middleware' => ['adminLogin', 'limitReq']],function(){
         
         Route::get('logout', 'AuthController@logout')->name('admin/logout');
 
