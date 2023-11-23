@@ -153,7 +153,7 @@ class MakeAuthCycle extends Command
         $this->file->put($file_path, $file_content);
     }
 
-    function makeAdminIndexDachboard()
+    function makeAdminDachboardSettings()
     {
         $file_path = base_path("app/Http/Controllers/Admin/") . "HomeController.php";
         $this->makeDir(dirname($file_path));
@@ -179,6 +179,37 @@ class MakeAuthCycle extends Command
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeBlade.stub", []);
         $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("app/helper/") . "functions.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHelperFunctions.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/layouts/admin/") . "home.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutHome.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/layouts/admin/") . "footer.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutFooter.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/layouts/admin/") . "navbar.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutNavbar.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/layouts/admin/") . "sidebar.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutSidebar.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/layouts/") . "inputs.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutInputs.stub", []);
+        $this->file->put($file_path, $file_content);
+
     }
 
     function handle()
@@ -196,10 +227,10 @@ class MakeAuthCycle extends Command
         $this->makeAdminRequest();
         $this->makeAdminAuthRequest();
         $this->makeLimitRequestMiddleware();
-        $this->makeAdminIndexDachboard();
+        $this->makeAdminDachboardSettings();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
         Artisan::call('devx:make:blade', ['classname' => 'admins']);
-        $this->info('created has been done, make admin guard, register middlewares and routes, take auth file and asset files, run laracasts/flash');
+        $this->info('created has been done, make admin guard, register middlewares and routes and helper functions, take asset files, run laracasts/flash');
     }
 }
