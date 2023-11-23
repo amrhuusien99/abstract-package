@@ -21,6 +21,7 @@ Route::group([ 'namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin' 
     
     Route::group(['middleware' => ['adminLogin', 'limitReq']],function(){
         
+        Route::get('/home', 'HomeController@home')->name('admin/index');
         Route::get('logout', 'AuthController@logout')->name('admin/logout');
 
         // admin routes

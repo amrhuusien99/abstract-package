@@ -94,7 +94,7 @@ class MakeAuthCycle extends Command
 
     function makeRepository()
     {
-        $file_path = base_path("app/Http/Repositories/Eloquent/") . "AdminRepository.php";
+        $file_path = base_path("app/Http/Repositories/Eloquent/Admin/") . "AdminRepository.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminRepository.stub", []);
         $this->file->put($file_path, $file_content);
@@ -102,7 +102,7 @@ class MakeAuthCycle extends Command
 
     function makeAuthRepository()
     {
-        $file_path = base_path("app/Http/Repositories/Eloquent/") . "AdminAuthRepository.php";
+        $file_path = base_path("app/Http/Repositories/Eloquent/Admin/") . "AuthRepository.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminAuthRepository.stub", []);
         $this->file->put($file_path, $file_content);
@@ -110,7 +110,7 @@ class MakeAuthCycle extends Command
 
     function makeAuthServices()
     {
-        $file_path = base_path("app/Http/ServicesLayer/Admin/AdminServices/") . "AdminAuthService.php";
+        $file_path = base_path("app/Http/ServicesLayer/Admin/AdminServices/") . "AuthService.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminAuthServices.stub", []);
         $this->file->put($file_path, $file_content);
@@ -134,12 +134,12 @@ class MakeAuthCycle extends Command
 
     function makeAdminRequest()
     {
-        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminStoreRequest.php";
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests/") . "AdminStoreRequest.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminStoreRequest.stub", []);
         $this->file->put($file_path, $file_content);
 
-        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminUpdateRequest.php";
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests/") . "AdminUpdateRequest.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminUpdateRequest.stub", []);
         $this->file->put($file_path, $file_content);
@@ -147,9 +147,27 @@ class MakeAuthCycle extends Command
 
     function makeAdminAuthRequest()
     {
-        $file_path = base_path("app/Http/Requests/Admin/AdminRequests") . "AdminLoginRequest.php";
+        $file_path = base_path("app/Http/Requests/Admin/AdminRequests/") . "AdminLoginRequest.php";
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminAuthRequest.stub", []);
+        $this->file->put($file_path, $file_content);
+    }
+
+    function makeAdminIndexDachboard()
+    {
+        $file_path = base_path("app/Http/Controllers/Admin/") . "HomeController.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeController.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("app/Http/Repositories/Eloquent/Admin/") . "HomeRepository.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeRepository.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("app/Http/ServicesLayer/Admin/HomeServices/") . "HomeService.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeServices.stub", []);
         $this->file->put($file_path, $file_content);
     }
 
@@ -161,15 +179,17 @@ class MakeAuthCycle extends Command
         $this->makeSeeder();
         $this->makeController();
         $this->makeAuthController();
-        $this->makeRepository(); 
+        $this->makeRepository();
         $this->makeAuthRepository();
         $this->makeAuthServices();
         $this->makeAuthMiddleware();
         $this->makeAdminRequest();
         $this->makeAdminAuthRequest();
         $this->makeLimitRequestMiddleware();
+        $this->makeAdminIndexDachboard();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
-        $this->info('created has been done, make admin guard, register provider commands and middlewares, take auth file and asset files, run laracasts/flash');
+        Artisan::call('devx:make:blade', ['classname' => 'admins']);
+        $this->info('created has been done, make admin guard, register provider commands and middlewares and routes, take auth file and asset files, run laracasts/flash');
     }
 }
