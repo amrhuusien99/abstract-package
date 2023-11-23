@@ -161,7 +161,7 @@ class MakeAuthCycle extends Command
         $this->makeSeeder();
         $this->makeController();
         $this->makeAuthController();
-        $this->makeRepository();
+        $this->makeRepository(); 
         $this->makeAuthRepository();
         $this->makeAuthServices();
         $this->makeAuthMiddleware();
