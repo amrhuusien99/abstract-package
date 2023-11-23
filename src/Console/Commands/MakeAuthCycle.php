@@ -210,6 +210,26 @@ class MakeAuthCycle extends Command
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLayoutInputs.stub", []);
         $this->file->put($file_path, $file_content);
 
+        $file_path = base_path("resources/views/admin/admins/") . "index.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminCurdIndex.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/admin/admins/") . "create.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminCurdCreate.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/admin/admins/") . "archives.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminCurdArchives.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/admin/admins/") . "info.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminCurdInfo.stub", []);
+        $this->file->put($file_path, $file_content);
+
     }
 
     function handle()
@@ -230,7 +250,7 @@ class MakeAuthCycle extends Command
         $this->makeAdminDachboardSettings();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
-        Artisan::call('devx:make:blade', ['classname' => 'admins']);
+        // Artisan::call('devx:make:blade', ['classname' => 'admins']);
         $this->info('created has been done, make admin guard, register middlewares and routes and helper functions, take asset files, run laracasts/flash');
     }
 }
