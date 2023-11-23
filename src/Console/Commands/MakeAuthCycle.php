@@ -169,6 +169,16 @@ class MakeAuthCycle extends Command
         $this->makeDir(dirname($file_path));
         $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeServices.stub", []);
         $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/admin/auth/") . "login.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminLogin.stub", []);
+        $this->file->put($file_path, $file_content);
+
+        $file_path = base_path("resources/views/admin/") . "home.blade.php";
+        $this->makeDir(dirname($file_path));
+        $file_content = $this->setFileContint(__DIR__ . "/Stubs/AdminHomeBlade.stub", []);
+        $this->file->put($file_path, $file_content);
     }
 
     function handle()
@@ -190,6 +200,6 @@ class MakeAuthCycle extends Command
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
         Artisan::call('devx:make:blade', ['classname' => 'admins']);
-        $this->info('created has been done, make admin guard, register provider commands and middlewares and routes, take auth file and asset files, run laracasts/flash');
+        $this->info('created has been done, make admin guard, register middlewares and routes, take auth file and asset files, run laracasts/flash');
     }
 }
