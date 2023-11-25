@@ -42,18 +42,18 @@
                 </div>
         </div>
 
-    <!-- jQuery -->
-    <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
+        <!-- jQuery -->
+        <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{asset('admin/assets/js/bootstrap.min.js')}}"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="{{asset('admin/assets/js/bootstrap.min.js')}}"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{asset('admin/assets/js/metisMenu.min.js')}}"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="{{asset('admin/assets/js/metisMenu.min.js')}}"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="{{asset('admin/assets/js/startmin.js')}}"></script>
-    @yield('script')
+        <!-- Custom Theme JavaScript -->
+        <script src="{{asset('admin/assets/js/startmin.js')}}"></script>
+        @yield('script')
 
-</body>
+    </body>
 </html>

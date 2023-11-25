@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
 	protected $table = 'admins';
-	protected $fillable = [];
+	protected $fillable = ['name', 'email', 'phone', 'password', 'img', 'role_id'];
     public $timestamps = true;
 
 	public function scopeActive($query){
