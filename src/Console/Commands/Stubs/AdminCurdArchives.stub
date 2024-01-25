@@ -43,6 +43,13 @@
                         <div class="col-sm-6 text-right">
                             <div id="dataTables-example_filter" class="dataTables_filter">
                                 <label><input id="data_search" placeholder="search" type="search" class="form-control input-sm" aria-controls="dataTables-example"></label>
+                                <label>
+                                    <div class="form-group">
+                                        <select class="form-control data_search" name="job_id" id="jobs" aria-controls="dataTables-example" style="width: 220px">
+                                            <option value="">الوظائف</option>
+                                        </select>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -224,16 +231,31 @@
             });
         });
 
-        $(document).on('keyup', '#data_search', function() {
+        $(document).on('keyup', '.data_search', function() {
             var q = $(this).val();
             var _token = $('input[name="_token"]').val();
-            let records = ``
+            var urlPath = "{{ route('admin/admins/search/archives') }}";
             event.preventDefault();
+            search_in_data(_token, q, urlPath)
+        });
+
+        $(document).on('change', '.data_search', function() {
+            var q = $(this).val();
+            var record = $(this).attr('name');
+            var _token = $('input[name="_token"]').val();
+            var urlPath = "{{ route('admin/admins/search/byColumn/archives') }}";
+            event.preventDefault();
+            search_in_data(_token, q, urlPath, record)
+        });
+
+        function search_in_data(_token, q, urlPath, record = '') {
+            let records = ``
             $.ajax({
-                url: "{{ route('admin/admins/search/archives') }}",
+                url: urlPath,
                 method: "POST",
                 data: {
                     q: q,
+                    record: record,
                     _token: _token
                 },
                 success: function(data) {
@@ -243,7 +265,7 @@
                             q == '' ? offset = <?php echo PAGINATION_COUNT ?> : ''
                             image_path =  "{{ asset('') }}" + data[i].img;
                             records += `
-                                <tr>
+                                <tr class="odd gradeX text-center">
                                     <td>${data[i].id}</td>
                                     <td>
                                         <div class="ml-2 d-flex">
@@ -253,6 +275,7 @@
                                     </td>
                                     <td>${data[i].name ?? ''}</td>
                                     <td>${data[i].email ?? ''}</td>
+                                    <td>${data[i].job ? data[i].job.name : ''}</td>
                                     <td>${data[i].phone ?? ''}</td>
                                     <td>${data[i].is_activate == 1 ? '<span class="badge badge-info">active</span>' : '<span class="badge badge-danger">un active</span>'}</td>
                                     <td>
@@ -263,8 +286,14 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-user">
                                                     <li>
-                                                        <button class="dropdown-item btn btn-danger openBackFrom" data-toggle="modal" data-target="#myModalBack" data-id="${data[i].id}">
-                                                            back
+                                                        <button class="dropdown-item btn btn-danger openDeleteFrom" data-toggle="modal" data-target="#myModalDelete" data-id="${data[i].id}">
+                                                            delete
+                                                        </button>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <button class="dropdown-item btn btn-priamry openActivationFrom" data-toggle="modal" data-target="#myModalActivation" data-id="${data[i].id}">
+                                                            activation
                                                         </button>
                                                     </li>
                                                 </ul>
@@ -281,7 +310,7 @@
                         length = data.length
                         showItems.innerHTML = Number(length)
                         if (data[0].searchButton == 1) {
-                            let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" id="load_more_button">عرض المزيد</button>`
+                            let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5"id="load_more_button">عرض المزيد</button>`
                             document.getElementById("load_more").innerHTML = btnData
                         }
                     } else if (data.length === 0) {
@@ -293,6 +322,6 @@
                     }
                 }
             })
-        });
+        }
     </script>
 @endsection

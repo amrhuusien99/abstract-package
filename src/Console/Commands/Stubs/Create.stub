@@ -41,8 +41,8 @@
                             @csrf
                             <!-- <div class="form-group input-group">
                                 <span class="input-group-addon" style="color: red;">*</span>
-                                <input name="slug" type="text" class="form-control" placeholder="Slug">
-                                @error('slug')
+                                <input name="name" type="text" class="form-control" placeholder="name">
+                                @error('name')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
@@ -82,8 +82,6 @@
 
 <!-- custom js -->
 @section('script')
-<!-- select 2 -->
-<script src="{{asset('admin/assets/js/select_2.js')}}"></script>
 <script>
     // $('#brands').select2({
     //     ajax: {

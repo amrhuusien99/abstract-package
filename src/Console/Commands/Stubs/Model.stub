@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class $NAME extends Model
 {
     protected $table = '$NORMALNAME';
-	protected $fillable = [];
+	protected $fillable = ['name'];
     public $timestamps = true;
 
 	public function scopeActive($query){
@@ -27,7 +27,7 @@ class $NAME extends Model
 	}
 	
 	public function fildes(){
-		return [''  => ''];
+		return ['name'  => ''];
 	}
 
 	public function scopeModelSearch($model, $query)

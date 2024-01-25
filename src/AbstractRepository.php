@@ -49,6 +49,12 @@ abstract class AbstractRepository
         return $record->save();
     }
 
+    public function removeRecord($id)
+    {
+        $record = $this->model->find($id);
+        return $record->delete(); 
+    }
+
     public function delete($id)
     {
         return $this->model->where("id", $id)->update(['deleted_at' => date("Y-m-d h:m:s")]);
@@ -73,6 +79,18 @@ abstract class AbstractRepository
         return $records;
     }
 
+    public function searchByColumn($request)
+    {
+        $query = $request->get('q');
+        $record = $request->get('record');
+        $records = [];
+        
+        if( !is_null($query) ){
+            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->unArchive()->get();
+        }
+        return $records;
+    }
+
     public function archives($offset, $limit)
     {
         return $this->model->latest()->with($this->model->model_relations())->archive()->offset($offset)->limit(PAGINATION_COUNT)->get();
@@ -90,7 +108,7 @@ abstract class AbstractRepository
         
         if( !is_null($query) ){
             $searchButton = 0;
-            $records = $this->model->modelSearchInArchives($query);
+            $records = $this->model->with($this->model->model_relations())->modelSearchInArchives($query);
         }else{
             $searchButton = 1;
             $records = $this->model->latest()->with($this->model->model_relations())->archive()->limit(PAGINATION_COUNT)->get();
@@ -98,6 +116,18 @@ abstract class AbstractRepository
         
         if($records && count($records) > 0){
             $records[0]->searchButton = $searchButton;
+        }
+        return $records;
+    }
+
+    public function archivesSearchByColumn($request)
+    {
+        $query = $request->get('q');
+        $record = $request->get('record');
+        $records = [];
+        
+        if( !is_null($query) ){
+            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->archive()->get();
         }
         return $records;
     }

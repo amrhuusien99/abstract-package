@@ -24,7 +24,7 @@ class $NAMEStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name' => 'required|string|max:254|unique:$NORMALNAME,name'
         ];
     }
 }

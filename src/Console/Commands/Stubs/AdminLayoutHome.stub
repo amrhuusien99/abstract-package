@@ -26,6 +26,9 @@
 
         <!-- Morris Charts CSS -->
         <link href="{{asset('admin/assets/css/morris.css')}}" rel="stylesheet">
+
+        <!-- select_2 CSS -->
+        <link href="{{asset('admin/assets/css/select_2.css')}}" rel="stylesheet">
         
         <!-- Custom Fonts -->
         <link href="{{asset('admin/assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
@@ -53,6 +56,9 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="{{asset('admin/assets/js/startmin.js')}}"></script>
+
+        <!-- select_2 JavaScript -->
+        <script src="{{asset('admin/assets/js/select_2.js')}}"></script>
         @yield('script')
 
     </body>

@@ -21,7 +21,7 @@ class MakeRepository extends FactoryFileCommand
 
     function getFilePath(): string
     {
-        return "app/Http/Repositories/Eloquent/";
+        return "app/Http/Repositories/Eloquent/Admin/";
     }
 
     function getFileVarSinquular()

@@ -9,9 +9,11 @@
         Route::get('$NORMALNAME/delete', '$FILENAMEUSSINQULARController@delete')->name('admin/$NORMALNAME/delete');
         Route::post('$NORMALNAME/pagination/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@pagination')->name('admin/$NORMALNAME/pagination');
         Route::post('$NORMALNAME/search', '$FILENAMEUSSINQULARController@search')->name('admin/$NORMALNAME/search');
+        Route::post('$NORMALNAME/search/byColumn', '$FILENAMEUSSINQULARController@searchByColumn')->name('admin/$NORMALNAME/search/byColumn');
         Route::get('$NORMALNAME/archives/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@archives')->name('admin/$NORMALNAME/archives');
         Route::get('$NORMALNAME/back', '$FILENAMEUSSINQULARController@back')->name('admin/$NORMALNAME/back');
         Route::post('$NORMALNAME/pagination/archives/{offset?}/{limit?}', '$FILENAMEUSSINQULARController@archivesPagination')->name('admin/$NORMALNAME/pagination/archives');
         Route::post('$NORMALNAME/search/archives', '$FILENAMEUSSINQULARController@archivesSearch')->name('admin/$NORMALNAME/search/archives');
+        Route::post('$NORMALNAME/search/byColumn/archives', '$FILENAMEUSSINQULARController@archivesSearchByColumn')->name('admin/$NORMALNAME/search/byColumn/archives');
 
         //ROUTEFROMCOMMANDLINE

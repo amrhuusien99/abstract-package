@@ -1,5 +1,4 @@
 <?php
-	use Illuminate\Support\Facades\File;
 
 	define('PAGINATION_COUNT', 10);
 	define('PAGINATION_COUNT_FRONT', 10);

@@ -73,6 +73,11 @@ class AdminController extends Controller
         return $this->admins->search($request);
     }
 
+    public function searchByColumn(Request $request)
+    {
+        return $this->admins->searchByColumn($request);
+    }
+
     public function pagination($offset, $limit)
     {
         return $this->admins->pagination($offset, $limit);
@@ -91,6 +96,11 @@ class AdminController extends Controller
     public function archivesSearch(Request $request)
     {
         return $this->admins->archivesSearch($request);
+    }
+
+    public function archivesSearchByColumn(Request $request)
+    {
+        return $this->admins->archivesSearchByColumn($request);
     }
 
     public function back(Request $request)

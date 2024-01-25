@@ -21,7 +21,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('admin/index')}}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{route('admin/$NORMALNAME/index')}}/0/{{PAGINATION_COUNT}}">$FILTITLE</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Archives</li>
+                    <li class="breadcrumb-item active" aria-current="page">Archive</li>
                 </ol>
             </nav>
             </div>
@@ -42,7 +42,14 @@
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6 text-right">
                             <div id="dataTables-example_filter" class="dataTables_filter">
-                                <label><input id="data_search" placeholder="search" type="search" class="form-control input-sm" aria-controls="dataTables-example"></label>
+                                <label><input placeholder="search" type="search" class="form-control input-sm data_search" aria-controls="dataTables-example"></label>
+                                <!-- <label>
+                                    <div class="form-group">
+                                        <select class="form-control data_search" name="job_id" id="jobs" aria-controls="dataTables-example" style="width: 220px">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </label> -->
                             </div>
                         </div>
                     </div>
@@ -51,6 +58,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Name</th>
                                     <th>Activation</th>
                                     <th>Actions</th>
                                 </tr>
@@ -60,6 +68,7 @@
                                     @foreach($$NORMALNAME as $$FILEVARSINQULAR)
                                         <tr class="odd gradeX">
                                             <td>{{$$FILEVARSINQULAR->id}}</td>
+                                            <td>{{$$FILEVARSINQULAR->name}}</td>
                                             <!-- <td>
                                                 <div class="ml-2 d-flex">
                                                     <img src="{{asset($$FILEVARSINQULAR->img)}}" alt="admin image"
@@ -170,6 +179,7 @@
                                     records += `
                                         <tr>
                                             <td>${data[i].id}</td>
+                                            <td>${data[i].name}</td>
                                             <!-- <td>
                                                 <div class="ml-2 d-flex">
                                                     <img src="${image_path}" alt="admin image"
@@ -214,28 +224,34 @@
             });
         });
 
-        $(document).on('keyup', '#data_search', function() {
+        $(document).on('keyup', '.data_search', function() {
             var q = $(this).val();
             var _token = $('input[name="_token"]').val();
-            let records = ``
+            var urlPath = "{{ route('admin/$NORMALNAME/search/archives') }}";
             event.preventDefault();
+            search_in_data(_token, q, urlPath)
+        });
+
+        function search_in_data(_token, q, urlPath, record = '') {
+            let records = ``
             $.ajax({
-                url: "{{ route('admin/$NORMALNAME/search/archives') }}",
+                url: urlPath,
                 method: "POST",
                 data: {
                     q: q,
+                    record: record,
                     _token: _token
                 },
                 success: function(data) {
                     if (data.length > 0) {
                         for (let i = 0; i < data.length; i++) {
-                            
+
                             q == '' ? offset = <?php echo PAGINATION_COUNT ?> : ''
                             image_path =  "{{ asset('') }}" + data[i].img;
-                            edit_route =  "{{ route('admin/$NORMALNAME/edit') }}" + '/' + data[i].id;
                             records += `
-                                <tr>
+                                <tr class="odd gradeX text-center">
                                     <td>${data[i].id}</td>
+                                    <td>${data[i].name}</td>
                                     <!-- <td>
                                         <div class="ml-2 d-flex">
                                             <img src="${image_path}" alt="admin image"
@@ -247,10 +263,10 @@
                                         <ul class="nav navbar-center navbar-top-links" style="border-radius: 15px;">
                                             <li class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                     actions <b class="caret"></b>
+                                                        actions <b class="caret"></b>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-user">
-                                                    <li>
+                                                    <li >
                                                         <button class="dropdown-item btn btn-danger openBackFrom" data-toggle="modal" data-target="#myModalBack" data-id="${data[i].id}">
                                                             back
                                                         </button>
@@ -269,7 +285,7 @@
                         length = data.length
                         showItems.innerHTML = Number(length)
                         if (data[0].searchButton == 1) {
-                            let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" id="load_more_button">عرض المزيد</button>`
+                            let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5"id="load_more_button">عرض المزيد</button>`
                             document.getElementById("load_more").innerHTML = btnData
                         }
                     } else if (data.length === 0) {
@@ -281,6 +297,6 @@
                     }
                 }
             })
-        });
+        }
     </script>
 @endsection

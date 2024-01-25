@@ -91,6 +91,11 @@ class $NAMEController extends Controller
         return $this->$NORMALNAME->search($request);
     }
 
+    public function searchByColumn(Request $request)
+    {
+        return $this->$NORMALNAME->searchByColumn($request);
+    }
+
     public function pagination($offset, $limit)
     {
         return $this->$NORMALNAME->pagination($offset, $limit);
@@ -109,6 +114,11 @@ class $NAMEController extends Controller
     public function archivesSearch(Request $request)
     {
         return $this->$NORMALNAME->archivesSearch($request);
+    }
+
+    public function archivesSearchByColumn(Request $request)
+    {
+        return $this->$NORMALNAME->archivesSearchByColumn($request);
     }
 
 
