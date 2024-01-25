@@ -36,7 +36,7 @@ Route::group([ 'namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin' 
         Route::get('admins/delete', 'AdminController@delete')->name('admin/admins/delete');
         Route::post('admins/pagination/{offset?}/{limit?}', 'AdminController@pagination')->name('admin/admins/pagination');
         Route::post('admins/search', 'AdminController@search')->name('admin/admins/search');
-        Route::post('admins/search/byColumn', 'AdminController@searchByColumn')->name('admin/admins/search/byColumn');
+        Route::post('admins/search/byColumn', 'AdminController@searchByColumn')->name('admin/admins/search/byColumn'); 
         Route::get('admins/archives/{offset?}/{limit?}', 'AdminController@archives')->name('admin/admins/archives');
         Route::get('admins/back', 'AdminController@back')->name('admin/admins/back');
         Route::post('admins/pagination/archives/{offset?}/{limit?}', 'AdminController@archivesPagination')->name('admin/admins/pagination/archives');
