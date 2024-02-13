@@ -91,6 +91,18 @@ abstract class AbstractRepository
         return $records;
     }
 
+    public function relationsSearch($request)
+    {
+        $query = $request->get('q');
+        $record = $request->get('record');
+        $records = [];
+        
+        if( !is_null($query) ){
+            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->unArchive()->get();
+        }
+        return $records;
+    }
+
     public function archives($offset, $limit)
     {
         return $this->model->latest()->with($this->model->model_relations())->archive()->offset($offset)->limit(PAGINATION_COUNT)->get();
@@ -121,6 +133,18 @@ abstract class AbstractRepository
     }
 
     public function archivesSearchByColumn($request)
+    {
+        $query = $request->get('q');
+        $record = $request->get('record');
+        $records = [];
+        
+        if( !is_null($query) ){
+            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->archive()->get();
+        }
+        return $records;
+    }
+
+    public function archivesRelationsSearch($request)
     {
         $query = $request->get('q');
         $record = $request->get('record');
