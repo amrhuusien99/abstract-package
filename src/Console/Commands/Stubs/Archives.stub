@@ -151,6 +151,7 @@
         });
     </script>
     <script>
+        var _token = $('input[name="_token"]').val();
         var offset = <?php echo PAGINATION_COUNT ?>;
         var limit = <?php echo PAGINATION_COUNT ?>;
         let showItems = document.getElementById("showItems");
@@ -160,7 +161,6 @@
         $(document).ready(function() {
             $(document).on('click', '#load_more_button', function() {
                 let records = ``
-                var _token = $('input[name="_token"]').val();
                 $('#load_more_button').html('<b>Loading... </b>');
                 load_data(_token);
 
@@ -226,13 +226,12 @@
 
         $(document).on('keyup', '.data_search', function() {
             var q = $(this).val();
-            var _token = $('input[name="_token"]').val();
             var urlPath = "{{ route('admin/$NORMALNAME/search/archives') }}";
             event.preventDefault();
-            search_in_data(_token, q, urlPath)
+            search_in_data(q, urlPath)
         });
 
-        function search_in_data(_token, q, urlPath, record = '') {
+        function search_in_data(q, urlPath, record = '') {
             let records = ``
             $.ajax({
                 url: urlPath,

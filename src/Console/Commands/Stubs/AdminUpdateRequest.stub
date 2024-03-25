@@ -11,7 +11,7 @@ class AdminUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public static function authorize()
     {
         return true;
     }
@@ -21,7 +21,7 @@ class AdminUpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public static function rules()
     {
         $user = auth()->guard('admin')->user();
         return [

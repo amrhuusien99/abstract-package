@@ -11,7 +11,7 @@ class $NAMEUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public static function authorize()
     {
         return true;
     }

@@ -6,7 +6,7 @@
 	function uploadIamge($photo, $folder){
 		$destinationPath = 'admin/assets/images/' . $folder . '/'; // upload path
 		$extension = $photo->getClientOriginalExtension(); // getting image extension
-        $fileName = time() . rand(11111, 99999) . '.' . $extension;  
+        $fileName = time() . $photo->hashName() . '.' . $extension;  
 		$photo_move = $photo->move(public_path($destinationPath), $fileName);
 		return $destinationPath . $fileName;
 	}
@@ -16,7 +16,7 @@
 		foreach ($photos as $photo){
 			$destinationPath = 'admin/assets/images/' . $folder . '/'; // upload path
 			$extension = $photo->getClientOriginalExtension(); // getting image extension
-			$fileName = time() . rand(11111, 99999) . '.' . $extension;  
+			$fileName = time() . $photo->hashName() . '.' . $extension;  
 			$photo_move = $photo->move(public_path($destinationPath), $fileName);
 			$images[] = $destinationPath . $fileName;
 		}
