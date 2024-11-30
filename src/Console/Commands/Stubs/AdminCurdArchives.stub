@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <h1 class="page-header">Admins</h1>
+            // <h1 class="page-header">Admins</h1>
         </div>
         <div class="col-lg-4">
             <div class="breadcrumb_container">
@@ -42,7 +42,7 @@
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6 text-right">
                             <div id="dataTables-example_filter" class="dataTables_filter">
-                                <label><input id="data_search" placeholder="search" type="search" class="form-control input-sm" aria-controls="dataTables-example"></label>
+                                <label><input id="data_search" placeholder="search" type="search" class="form-control input-sm data_search" aria-controls="dataTables-example"></label>
                                 <label>
                                     <div class="form-group">
                                         <select class="form-control data_search" name="job_id" id="jobs" aria-controls="dataTables-example" style="width: 220px">
@@ -57,19 +57,19 @@
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Img</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Activation</th>
-                                    <th>Actions</th>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Img</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Activation</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="tableShowData">
                                 @isset($admins)
                                     @foreach($admins as $admin)
-                                        <tr class="odd gradeX">
+                                        <tr class="odd gradeX text-center">
                                             <td>{{$admin->id}}</td>
                                             <td>
                                                 <div class="ml-2 d-flex">
@@ -156,100 +156,38 @@
         });
     </script>
     <script>
-        var offset = <?php echo PAGINATION_COUNT ?>;
-        var limit = <?php echo PAGINATION_COUNT ?>;
+        var q = '';
+        var offset = length = limit = <?php echo PAGINATION_COUNT ?>;
+        var _token = $('input[name="_token"]').val();
         let showItems = document.getElementById("showItems");
-        showItems.innerHTML = limit
-        let length = limit
+        var tableShowData = document.getElementById("tableShowData"); 
+        showItems.innerHTML = limit;
 
-        $(document).ready(function() {
-            $(document).on('click', '#load_more_button', function() {
-                let records = ``
-                var _token = $('input[name="_token"]').val();
-                $('#load_more_button').html('<b>Loading... </b>');
-                load_data(_token);
-
-                function load_data(_token) {
-                    $.ajax({
-                        url: `{{ route("admin/admins/pagination/archives")}}/${offset}/${limit}`,
-                        method: "POST",
-                        data: {
-                            id: id,
-                            _token: _token,
-                        },
-                        success: function(data) {
-                            if (data.length > 0) {
-                                for (let i = 0; i < data.length; i++) {
-                                    image_path =  "{{ asset('') }}" + data[i].img;
-                                    records += `
-                                        <tr>
-                                            <td>${data[i].id}</td>
-                                            <td>
-                                                <div class="ml-2 d-flex">
-                                                    <img src="${image_path}" alt="admin image"
-                                                        class="img-fluid img-50 rounded-circle blur-up lazyloaded" width="100">
-                                                </div>
-                                            </td>
-                                            <td>${data[i].name ?? ''}</td>
-                                            <td>${data[i].email ?? ''}</td>
-                                            <td>${data[i].phone ?? ''}</td>
-                                            <td>${data[i].is_activate == 1 ? '<span class="badge badge-info">active</span>' : '<span class="badge badge-danger">un active</span>'}</td>
-                                            <td>
-                                                <ul class="nav navbar-center navbar-top-links" style="border-radius: 15px;">
-                                                    <li class="dropdown">
-                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                             actions <b class="caret"></b>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-user">
-                                                            <li >
-                                                                <button class="dropdown-item btn btn-danger openBackFrom" data-toggle="modal" data-target="#myModalBack" data-id="${data[i].id}">
-                                                                    back
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    `
-                                }
-                                document.getElementById("tableShowData").innerHTML += records
-                                offset += data.length
-                                length += data.length
-                                showItems.innerHTML = Number(length)
-                                let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" id="load_more_button">عرض المزيد</button>`
-                                $('#load_more_button').remove();
-                                document.getElementById("load_more").innerHTML = btnData
-                            } else if (data.length === 0) {
-                                let btnNoData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-primary form-control px-5" id="load_more_button_remove">No Data</button>`
-                                $('#load_more_button').remove();
-                                document.getElementById("load_more").innerHTML = btnNoData
-                            }
-                        }
-                    })
-                }
-            });
+        $(document).on('click', '#load_more_button', function() {
+            q = $(this).val();
+            var urlPath = `{{ route("admin/admins/pagination/archives")}}/${offset}/${limit}`;
+            event.preventDefault();
+            $('#load_more_button').html('<b>Loading... </b>');
+            search_in_data(q, urlPath, 1);
         });
 
         $(document).on('keyup', '.data_search', function() {
-            var q = $(this).val();
-            var _token = $('input[name="_token"]').val();
+            q = $(this).val();
             var urlPath = "{{ route('admin/admins/search/archives') }}";
             event.preventDefault();
-            search_in_data(_token, q, urlPath)
+            search_in_data(q, urlPath)
         });
 
         $(document).on('change', '.data_search', function() {
-            var q = $(this).val();
+            q = $(this).val();
             var record = $(this).attr('name');
-            var _token = $('input[name="_token"]').val();
             var urlPath = "{{ route('admin/admins/search/byColumn/archives') }}";
             event.preventDefault();
-            search_in_data(_token, q, urlPath, record)
+            search_in_data(q, urlPath, record)
         });
 
-        function search_in_data(_token, q, urlPath, record = '') {
-            let records = ``
+        function search_in_data(q, urlPath, action_type, record = '') {
+            let records = ``;
             $.ajax({
                 url: urlPath,
                 method: "POST",
@@ -260,68 +198,80 @@
                 },
                 success: function(data) {
                     if (data.length > 0) {
-                        for (let i = 0; i < data.length; i++) {
-
-                            q == '' ? offset = <?php echo PAGINATION_COUNT ?> : ''
-                            image_path =  "{{ asset('') }}" + data[i].img;
-                            records += `
-                                <tr class="odd gradeX text-center">
-                                    <td>${data[i].id}</td>
-                                    <td>
-                                        <div class="ml-2 d-flex">
-                                            <img src="${image_path}" alt="admin image"
-                                                class="img-fluid img-50 rounded-circle blur-up lazyloaded" width="100">
-                                        </div>
-                                    </td>
-                                    <td>${data[i].name ?? ''}</td>
-                                    <td>${data[i].email ?? ''}</td>
-                                    <td>${data[i].job ? data[i].job.name : ''}</td>
-                                    <td>${data[i].phone ?? ''}</td>
-                                    <td>${data[i].is_activate == 1 ? '<span class="badge badge-info">active</span>' : '<span class="badge badge-danger">un active</span>'}</td>
-                                    <td>
-                                        <ul class="nav navbar-center navbar-top-links" style="border-radius: 15px;">
-                                            <li class="dropdown">
-                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                     actions <b class="caret"></b>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user">
-                                                    <li>
-                                                        <button class="dropdown-item btn btn-danger openDeleteFrom" data-toggle="modal" data-target="#myModalDelete" data-id="${data[i].id}">
-                                                            delete
-                                                        </button>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <button class="dropdown-item btn btn-priamry openActivationFrom" data-toggle="modal" data-target="#myModalActivation" data-id="${data[i].id}">
-                                                            activation
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            `
-                        }
-                        document.getElementById("tableShowData").style.display = null
-                        document.getElementById("tableShowData").innerHTML = records
-                        $('#load_more_button').remove();
-                        $('#load_more_button_remove').remove();
-                        length = data.length
-                        showItems.innerHTML = Number(length)
-                        if (data[0].searchButton == 1) {
-                            let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5"id="load_more_button">عرض المزيد</button>`
-                            document.getElementById("load_more").innerHTML = btnData
-                        }
+                        records = table_records(data, action_type);
                     } else if (data.length === 0) {
-                        length = data.length
-                        showItems.innerHTML = Number(length)
-                        document.getElementById("tableShowData").style.display = 'none'
-                        let btnNoData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-primary form-control px-5" id="load_more_button_remove">No Data</button>`
-                        document.getElementById("load_more").innerHTML = btnNoData
+                        if (action_type == 2) {
+                            length = data.length;
+                            showItems.innerHTML = Number(length);
+                            tableShowData.style.display = 'none';
+                        }
+                        $('#load_more_button').remove();
+                        let btnNoData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-primary form-control px-5" id="load_more_button_remove">No Data</button>`;
+                        document.getElementById("load_more").innerHTML = btnNoData;
                     }
                 }
             })
+        }
+
+        // action type => 1 from pagination , 2 from search
+        function table_records(data, action_type)
+        {
+            let records = ``;
+            q == '' && action_type == 2 ? offset = <?php echo PAGINATION_COUNT ?> : '';
+            for (let i = 0; i < data.length; i++) {
+
+                image_path =  "{{ asset('') }}" + data[i].img;
+                records += `
+                    <tr class="odd gradeX text-center">
+                        <td>${data[i].id}</td>
+                        <td>
+                            <div class="ml-2 d-flex">
+                                <img src="${image_path}" alt="admin image"
+                                    class="img-fluid img-50 rounded-circle blur-up lazyloaded" width="100">
+                            </div>
+                        </td>
+                        <td>${data[i].name ?? ''}</td>
+                        <td>${data[i].email ?? ''}</td>
+                        <td>${data[i].phone ?? ''}</td>
+                        <td>${data[i].is_activate == 1 ? '<span class="badge badge-info">active</span>' : '<span class="badge badge-danger">un active</span>'}</td>
+                        <td>
+                            <ul class="nav navbar-center navbar-top-links" style="border-radius: 15px;">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            actions <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li >
+                                            <button class="dropdown-item btn btn-danger openBackFrom" data-toggle="modal" data-target="#myModalBack" data-id="${data[i].id}">
+                                                back
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                `
+            }
+            $('#load_more_button').remove();
+            $('#load_more_button_remove').remove();
+            if (action_type == 1) {
+                tableShowData.innerHTML += records;
+                offset += data.length;
+                length += data.length;
+                showItems.innerHTML = Number(length);
+                let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5"id="load_more_button">عرض المزيد</button>`;
+                document.getElementById("load_more").innerHTML = btnData;
+            }else if (action_type == 2) {
+                tableShowData.style.display = null;
+                tableShowData.innerHTML = records;
+                length = data.length;
+                showItems.innerHTML = Number(length);
+                if (data[0].searchButton == 1) {
+                    let btnData = `<button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5"id="load_more_button">عرض المزيد</button>`;
+                    document.getElementById("load_more").innerHTML = btnData;
+                }
+            }
         }
     </script>
 @endsection
