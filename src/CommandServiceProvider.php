@@ -12,6 +12,7 @@ use DevxPackage\Console\Commands\MakeModel;
 use DevxPackage\Console\Commands\MakeRepository;
 use DevxPackage\Console\Commands\MakeRequest;
 use DevxPackage\Console\Commands\MakeRoutes;
+use DevxPackage\Console\Commands\CloneAdminAssetRepository;
 
 class CommandServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ class CommandServiceProvider extends ServiceProvider
             MakeMigration::class,
             MakeController::class,
             MakeRepository::class,
+            CloneAdminAssetRepository::class,
         ]);
     }
 }
