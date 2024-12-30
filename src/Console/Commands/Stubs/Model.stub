@@ -48,4 +48,9 @@ class $NAME extends Model
 	{
 		return [];
 	}
+
+	public function model_relations_counts()
+	{
+		return [];
+	}
 }

@@ -22,7 +22,7 @@ abstract class AbstractRepository
 
     public function pagination($offset, $limit)
     {
-        return $this->model->with($this->model->model_relations())->unArchive()->orderBy('id', 'DESC')->offset($offset)->limit(PAGINATION_COUNT)->get(); 
+        return $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->orderBy('id', 'DESC')->offset($offset)->limit(PAGINATION_COUNT)->get(); 
     }
 
     public function findOne($id)
@@ -67,10 +67,10 @@ abstract class AbstractRepository
         
         if( !is_null($query) ){
             $searchButton = 0;
-            $records = $this->model->with($this->model->model_relations())->modelSearch($query);
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->modelSearch($query);
         }else{
             $searchButton = 1;
-            $records = $this->model->latest()->with($this->model->model_relations())->unArchive()->limit(PAGINATION_COUNT)->get(); 
+            $records = $this->model->latest()->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->limit(PAGINATION_COUNT)->get(); 
         }
         
         if($records && count($records) > 0){
@@ -86,14 +86,14 @@ abstract class AbstractRepository
         $records = [];
         
         if( !is_null($query) ){
-            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->unArchive()->get();
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->where($record, '=', $query)->unArchive()->get();
         }
         return $records;
     }
 
     public function archives($offset, $limit)
     {
-        return $this->model->latest()->with($this->model->model_relations())->archive()->offset($offset)->limit(PAGINATION_COUNT)->get();
+        return $this->model->latest()->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->archive()->offset($offset)->limit(PAGINATION_COUNT)->get();
     }
 
     public function back($id)
@@ -108,10 +108,10 @@ abstract class AbstractRepository
         
         if( !is_null($query) ){
             $searchButton = 0;
-            $records = $this->model->with($this->model->model_relations())->modelSearchInArchives($query);
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->modelSearchInArchives($query);
         }else{
             $searchButton = 1;
-            $records = $this->model->latest()->with($this->model->model_relations())->archive()->limit(PAGINATION_COUNT)->get();
+            $records = $this->model->latest()->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->archive()->limit(PAGINATION_COUNT)->get();
         }
         
         if($records && count($records) > 0){
@@ -127,7 +127,7 @@ abstract class AbstractRepository
         $records = [];
         
         if( !is_null($query) ){
-            $records = $this->model->with($this->model->model_relations())->where($record, '=', $query)->archive()->get();
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->where($record, '=', $query)->archive()->get();
         }
         return $records;
     }
