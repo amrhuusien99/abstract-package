@@ -248,8 +248,10 @@ class MakeAuthCycle extends Command
         $this->makeAdminAuthRequest();
         $this->makeLimitRequestMiddleware();
         $this->makeAdminDachboardSettings();
+        $this->makeAdminAuthRequest();
         Artisan::call('migrate');
         Artisan::call('db:seed --class=AdminSeeder');
+        Artisan::call('git:clone-admin-asset');
         // Artisan::call('devx:make:blade', ['classname' => 'admins']);
         $this->info('created has been done, make admin guard, register middlewares and routes and helper functions, take asset files, run laracasts/flash');
     }

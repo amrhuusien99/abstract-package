@@ -53,4 +53,9 @@ class Admin extends Authenticatable
 	{
 		return [];
 	}
+
+	public function model_relations_counts()
+	{
+		return [];
+	}
 }
