@@ -216,7 +216,7 @@
                                 <img src="${image_path}" alt="admin image"
                                     class="img-fluid img-50 rounded-circle blur-up lazyloaded" width="100">
                             </div>
-                        </td> -->
+                        </td> --> 
                         <td>${data[i].is_activate == 1 ? '<span class="badge badge-info">active</span>' : '<span class="badge badge-danger">un active</span>'}</td>
                         <td>
                             <ul class="nav navbar-center navbar-top-links" style="border-radius: 15px;">
