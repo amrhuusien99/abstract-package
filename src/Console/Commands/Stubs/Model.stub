@@ -33,15 +33,13 @@ class $NAME extends Model
 	public function scopeModelSearch($model, $query)
 	{
 		return $model->latest()->where('id', 'LIKE', '%'. $query .'%')
-					 ->orWhere('name', 'LIKE', '%'. $query .'%')
-					 ->unArchive()->get();
+					 ->orWhere('name', 'LIKE', '%'. $query .'%');
 	}
 
 	public function scopeModelSearchInArchives($model, $query)
 	{
 		return $model->latest()->where('id', 'LIKE', '%'. $query .'%')
-					 ->orWhere('name', 'LIKE', '%'. $query .'%')
-					 ->archive()->get();
+					 ->orWhere('name', 'LIKE', '%'. $query .'%');
 	}
 
 	public function model_relations()
