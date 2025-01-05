@@ -67,7 +67,7 @@ abstract class AbstractRepository
         
         if( !is_null($query) ){
             $searchButton = 0;
-            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->modelSearch($query)->unArchive()->limit(PAGINATION_COUNT)->get();
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->modelSearch($query)->get();
         }else{
             $searchButton = 1;
             $records = $this->model->latest()->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->limit(PAGINATION_COUNT)->get(); 
@@ -108,7 +108,7 @@ abstract class AbstractRepository
         
         if( !is_null($query) ){
             $searchButton = 0;
-            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->scopeModelSearch($query)->archive()->limit(PAGINATION_COUNT)->get();
+            $records = $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->archive()->scopeModelSearch($query)->get();
         }else{
             $searchButton = 1;
             $records = $this->model->latest()->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->archive()->limit(PAGINATION_COUNT)->get();

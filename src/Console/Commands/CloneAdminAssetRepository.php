@@ -30,7 +30,8 @@ class CloneAdminAssetRepository extends Command
             return 1;
         }
         $this->info('Cloning repository...');
-        $repository = 'https://github.com/amrhuusien99/admin-asset.git';
+        $repository = 'https://github.com/amrhuusien99/admin-asset-new.git';
+        // $repository = 'https://github.com/amrhuusien99/admin-asset.git';
         $destination = public_path('admin');
         $command = "git clone $repository $destination 2>&1";
         $output = shell_exec($command);

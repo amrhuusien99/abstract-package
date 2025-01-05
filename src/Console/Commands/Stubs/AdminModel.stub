@@ -37,7 +37,7 @@ class Admin extends Authenticatable
 					 ->orWhere('email', 'LIKE', '%'. $query .'%')
 					 ->orWhere('name', 'LIKE', '%'. $query .'%')
 					 ->orWhere('phone', 'LIKE', '%'. $query .'%')
-					 ->unArchive()->get();
+					 ->limit(PAGINATION_COUNT);
 	}
 
 	public function scopeModelSearchInArchives($model, $query)
@@ -46,7 +46,7 @@ class Admin extends Authenticatable
 					 ->orWhere('email', 'LIKE', '%'. $query .'%')
 					 ->orWhere('name', 'LIKE', '%'. $query .'%')
 					 ->orWhere('phone', 'LIKE', '%'. $query .'%')
-					 ->archive()->get();
+					 ->limit(PAGINATION_COUNT);
 	}
 
 	public function model_relations()
