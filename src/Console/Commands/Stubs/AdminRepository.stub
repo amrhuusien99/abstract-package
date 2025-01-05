@@ -52,7 +52,9 @@ class AdminRepository extends AbstractRepository
         }
         // update password
         $admin->password = bcrypt($request->input('password'));
-        return $admin->save();
+        $admin->save();
+        flash()->success("success");
+        return back();
     }
 
 

@@ -137,9 +137,9 @@ class AdminController extends Controller
     public function change_password(AdminUpdateRequest $request)
     {
         try{
-            $this->admins->changePassword($request);
-            flash()->success('Success');
-            return back();
+            return $this->admins->changePassword($request);
+            // flash()->success('Success');
+            // return back();
         }catch(\Exception $e){
             flash()->error('There is something wrong , please contact technical support');
             return back();
