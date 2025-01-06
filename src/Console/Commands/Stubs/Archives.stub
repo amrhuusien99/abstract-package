@@ -171,6 +171,13 @@
 <!-- custom js -->
 @section('script')
     <script>
+        (function () {
+            $('.nav-link.menu-link').removeClass('active');
+            $('.menu-dropdown').removeClass('show');
+            $('.sidebar$NORMALNAME').addClass('active');
+            var target = $('.sidebar$NORMALNAME').attr('href');
+            $(target).addClass('show');
+        })();
         $(document).on('click', '.openBackFrom', function() {
             var id = $(this).attr('data-id');
             $('#back_record_id').val(id);

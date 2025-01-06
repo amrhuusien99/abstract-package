@@ -200,6 +200,13 @@
 <!-- custom js -->
 @section('script')
     <script>
+        (function () {
+            $('.nav-link.menu-link').removeClass('active');
+            $('.menu-dropdown').removeClass('show');
+            $('.sidebaradmins').addClass('active');
+            var target = $('.sidebaradmins').attr('href');
+            $(target).addClass('show');
+        })();
         $(document).on('click', '.openDeleteFrom', function() {
             var id = $(this).attr('data-id');
             $('#delete_record_id').val(id);
