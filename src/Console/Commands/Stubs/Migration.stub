@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('$NORMALNAME', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 255);
+            $table->string('name', 255)->nullable();
             $table->dateTime('deleted_at')->nullable();
             $table->tinyInteger('is_activate')->default(1);
         });
