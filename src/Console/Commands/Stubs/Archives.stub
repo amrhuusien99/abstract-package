@@ -172,7 +172,7 @@
 @section('script')
     <script>
         (function () {
-            $('.nav-link.menu-link').removeClass('active');
+            $('.nav-link.menu-link').removeClass('active'); 
             $('.menu-dropdown').removeClass('show');
             $('.sidebar$NORMALNAME').addClass('active');
             var target = $('.sidebar$NORMALNAME').attr('href');
