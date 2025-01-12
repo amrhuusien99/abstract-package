@@ -135,12 +135,12 @@ abstract class AbstractRepository
     public function handle_request($request)
     {
         $request->password ? $request->merge(['password' => bcrypt($request->password)]) : "";
-        if (!$request->hasFile('photo') == null) {
-            $file = uploadIamge($request->file('photo'), $this->crudName()); // function on helper file to upload file
+        if (!$request->hasFile('file') == null) {
+            $file = uploadIamge($request->file('file'), $this->crudName()); // function on helper file to upload file
             $request->merge(['img' => $file]);
         }
-        if (!$request->hasFile('photos') == null) {
-            $files = uploadIamges($request->file('photos'), $this->crudName()); // function on helper file to upload file
+        if (!$request->hasFile('files') == null) {
+            $files = uploadIamges($request->file('files'), $this->crudName()); // function on helper file to upload file
             $request->merge(['imgs' => $files]);
         }
         $request = array_filter(array_intersect_key($request->all(), $this->model->fildes()));

@@ -14,15 +14,15 @@
 </div>
 <div class="form-group input-group">
     <span class="input-group-addon" style="color: red;">*</span>
-    <input name="photo" type="file" class="form-control" placeholder="Upload Image">
-    @error('photo')
+    <input name="file" type="file" class="form-control" placeholder="Upload Image">
+    @error('file')
         <span class="text-danger">{{$message}}</span>
     @enderror
 </div>
 <div class="form-group input-group">
     <label class="form-label">{{__('vendor/products.product_images')}}</label>
-    <input type="file" class="form-control" name="photos[]" multiple>
-    @error('photos[]')
+    <input type="file" class="form-control" name="files[]" multiple>
+    @error('files[]')
         <span class="text-danger">{{$message}}</span>
     @enderror
 </div>

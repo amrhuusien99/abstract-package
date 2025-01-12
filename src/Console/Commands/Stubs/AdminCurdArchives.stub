@@ -86,21 +86,17 @@
                                                     </thead>
                                                     <tbody id="tableShowData">
                                                         @isset($admins)
-                                                            @foreach($admins as $admin)
+                                                            @foreach($admins as $record)
                                                                 <tr class="text-center">
-                                                                    <td class="text-center">{{$admin->id}}</td>
+                                                                    <td class="text-center">{{$record->id}}</td>
                                                                     <td class="text-center">
-                                                                        <div class="d-flex align-items-center" style="">
-                                                                            <div class="flex-shrink-0 me-2">
-                                                                                <img src="{{asset($admin->img)}}" alt="admin image" class="avatar-xs rounded-circle material-shadow">
-                                                                            </div>
-                                                                        </div>
+                                                                        <img src="{{asset($record->img)}}" alt="record image" class="img-fluid img-40 rounded-circle blur-up lazyloaded" width="100">
                                                                     </td>
-                                                                    <td class="text-center">{{$admin->name}}</td>
-                                                                    <td class="text-center">{{$admin->email}}</td>
-                                                                    <td class="text-center">{{$admin->phone}}</td>
+                                                                    <td class="text-center">{{$record->name}}</td>
+                                                                    <td class="text-center">{{$record->email}}</td>
+                                                                    <td class="text-center">{{$record->phone}}</td>
                                                                     <?php
-                                                                        if($admin->is_activate == 1){$activate = '<span class="badge bg-info-subtle text-info">active</span>';}
+                                                                        if($record->is_activate == 1){$activate = '<span class="badge bg-info-subtle text-info">active</span>';}
                                                                         else{$activate = '<span class="badge bg-info-subtle text-danger">un active</span>';}
                                                                     ?>
                                                                     <td class="center">{!! $activate !!}</td>
@@ -111,7 +107,7 @@
                                                                             </button>
                                                                             <ul class="dropdown-menu dropdown-menu-end" style="text-align: end;">
                                                                                 <li>
-                                                                                    <button class="dropdown-item edit-item-btn openBackFrom" data-bs-toggle="modal" data-bs-target="#myModalBack" data-id="{{$admin->id}}">
+                                                                                    <button class="dropdown-item edit-item-btn openBackFrom" data-bs-toggle="modal" data-bs-target="#myModalBack" data-id="{{$record->id}}">
                                                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i> back
                                                                                     </button>
                                                                                 </li>
@@ -253,11 +249,7 @@
                     <tr class="text-center">
                         <td class="text-center">${data[i].id}</td>
                         <td class="text-center">
-                            <div class="d-flex align-items-center" style="">
-                                <div class="flex-shrink-0 me-2">
-                                    <img src="${image_path}" alt="admin image" class="avatar-xs rounded-circle material-shadow">
-                                </div>
-                            </div>
+                            <img src="${image_path}" alt="record image" class="img-fluid img-40 rounded-circle blur-up lazyloaded" width="100">
                         </td>
                         <td class="text-center">${data[i].name ?? ''}</td>
                         <td class="text-center">${data[i].email ?? ''}</td>

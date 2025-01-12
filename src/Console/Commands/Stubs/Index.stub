@@ -75,18 +75,16 @@
                                                     </thead>
                                                     <tbody id="tableShowData">
                                                         @isset($$NORMALNAME)
-                                                            @foreach($$NORMALNAME as $$FILEVARSINQULAR)
+                                                            @foreach($$NORMALNAME as $record)
+                                                                <!-- $$FILEVARSINQULAR -->
                                                                 <tr class="text-center">
-                                                                    <td class="text-center">{{$$FILEVARSINQULAR->id}}</td>
-                                                                    <td class="text-center">{{$$FILEVARSINQULAR->name}}</td>
+                                                                    <td class="text-center">{{$record->id}}</td>
+                                                                    <td class="text-center">{{$record->name}}</td>
                                                                     <!-- <td class="text-center">
-                                                                        <div class="ml-2 d-flex">
-                                                                            <img src="{{asset($$FILEVARSINQULAR->img)}}" alt="admin image"
-                                                                                class="img-fluid img-50 rounded-circle blur-up lazyloaded" width="100">
-                                                                        </div>
+                                                                        <img src="{{asset($record->img)}}" alt="record image" class="img-fluid img-40 rounded-circle blur-up lazyloaded" width="100">
                                                                     </td> -->
                                                                     <?php
-                                                                        if($$FILEVARSINQULAR->is_activate == 1){$activate = '<span class="badge bg-info-subtle text-info">active</span>';}
+                                                                        if($record->is_activate == 1){$activate = '<span class="badge bg-info-subtle text-info">active</span>';}
                                                                         else{$activate = '<span class="badge bg-info-subtle text-danger">un active</span>';}
                                                                     ?>
                                                                     <td class="text-center">{!! $activate !!}</td>
@@ -97,17 +95,17 @@
                                                                             </button>
                                                                             <ul class="dropdown-menu dropdown-menu-end" style="text-align: end;">
                                                                                 <li>
-                                                                                    <a href="{{route('admin/$NORMALNAME/edit', $$FILEVARSINQULAR->id)}}" class="dropdown-item edit-item-btn">
+                                                                                    <a href="{{route('admin/$NORMALNAME/edit', $record->id)}}" class="dropdown-item edit-item-btn">
                                                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i> edit
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <button class="dropdown-item edit-item-btn openActivationFrom" data-bs-toggle="modal" data-bs-target="#myModalActivation" data-id="{{$$FILEVARSINQULAR->id}}">
+                                                                                    <button class="dropdown-item edit-item-btn openActivationFrom" data-bs-toggle="modal" data-bs-target="#myModalActivation" data-id="{{$record->id}}">
                                                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i> activation
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <button class="dropdown-item remove-item-btn openDeleteFrom" data-bs-toggle="modal" data-bs-target="#myModalDelete" data-id="{{$$FILEVARSINQULAR->id}}">
+                                                                                    <button class="dropdown-item remove-item-btn openDeleteFrom" data-bs-toggle="modal" data-bs-target="#myModalDelete" data-id="{{$record->id}}">
                                                                                         <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
                                                                                     </button>
                                                                                 </li>
@@ -286,11 +284,7 @@
                         <td class="text-center">${data[i].id}</td>
                         <td class="text-center">${data[i].name}</td>
                         <!-- <td class="text-center">
-                            <div class="d-flex align-items-center" style="">
-                                <div class="flex-shrink-0 me-2">
-                                    <img src="${image_path}" alt="admin image" class="avatar-xs rounded-circle material-shadow">
-                                </div>
-                            </div>
+                            <img src="${image_path}" alt="record image" class="img-fluid img-40 rounded-circle blur-up lazyloaded" width="100">
                         </td> -->
                         <td class="text-center">${data[i].is_activate == 1 ? '<span class="badge bg-info-subtle text-info">active</span>' : '<span class="badge bg-info-subtle text-danger">un active</span>'}</td>
                         <td class="text-center">
