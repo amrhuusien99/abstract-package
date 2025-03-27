@@ -123,14 +123,14 @@
                                                 </div>
                                                 <div class="ltn__pagination-area text-center mt-5">
                                                 
-                                                    {{-- <div class="ltn__pagination text-center">
+                                                    <div class="ltn__pagination text-center">
                                                         <div id="load_more">
                                                             <button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" data-id="'.$last_id.'" id="load_more_button">عرض المزيد</button>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                 
                                                     {{-- pagination are --}}
-                                                    <div class="d-flex justify-content-center mt-2">
+                                                    {{-- <div class="d-flex justify-content-center mt-2">
                                                         <div class="d-flex justify-content-center mt-2">
                                                             <nav aria-label="Page navigation">
                                                                 <ul class="pagination flex-wrap justify-content-center" style="align-items: center;">
@@ -165,7 +165,7 @@
                                                                 </ul>
                                                             </nav>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
                                                 
