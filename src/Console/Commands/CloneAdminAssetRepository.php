@@ -39,6 +39,17 @@ class CloneAdminAssetRepository extends Command
             $this->error('Failed to clone repository. Error: ' . $output);
             return 1;
         }
+        try {
+            $gitFolder = $destination . '/.git';
+            if (is_dir($gitFolder)) {
+                if (PHP_OS_FAMILY === 'Windows') {
+                    shell_exec("rd /s /q \"$gitFolder\""); // Windows
+                } else {
+                    shell_exec("rm -rf \"$gitFolder\""); // Linux/macOS
+                }
+                $this->info('Removed .git folder to detach from repository.');
+            }
+        } catch (\Exception $e) {}
         $this->info('Repository cloned successfully into: ' . $destination);
 
     }

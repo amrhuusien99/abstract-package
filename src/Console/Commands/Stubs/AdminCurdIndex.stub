@@ -121,11 +121,51 @@
                                                     Showing 1 to <span id="showItems"></span> of <span>{{App\Models\Admin::unArchive()->count()}}</span> entries
                                                 </div>
                                                 <div class="ltn__pagination-area text-center mt-5">
-                                                    <div class="ltn__pagination text-center">
+                                                
+                                                    {{-- <div class="ltn__pagination text-center">
                                                         <div id="load_more">
-                                                            <button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" data-id="'.$last_id.'" id="load_more_button">Load More</button>
+                                                            <button type="button" name="load_more_button" style="width: 350px;" class="btn btn-info form-control px-5" data-id="'.$last_id.'" id="load_more_button">عرض المزيد</button>
+                                                        </div>
+                                                    </div> --}}
+                                
+                                                    {{-- pagination are --}}
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <div class="d-flex justify-content-center mt-2">
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination flex-wrap justify-content-center" style="align-items: center;">
+                                                                    <!-- Previous Button -->
+                                                                    @if (!$admins->onFirstPage())
+                                                                        <li class="page-item mt-1">
+                                                                            <a class="page-link" href="{{ $admins->previousPageUrl() }}"
+                                                                            aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
+                                                    
+                                                                    <!-- Pagination Numbers -->
+                                                                    @for ($i = 1; $i <= $admins->lastPage(); $i++)
+                                                                        <li class="page-item mt-1 {{ $i == $admins->currentPage() ? 'active' : '' }}">
+                                                                            <a class="page-link" href="{{ $admins->url($i) }}"
+                                                                            @if ($i == $admins->currentPage()) style="font-weight:bold;" @endif>
+                                                                                {{ $i }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endfor
+                                                    
+                                                                    <!-- Next Button -->
+                                                                    @if ($admins->hasMorePages())
+                                                                        <li class="page-item mt-1">
+                                                                            <a class="page-link" href="{{ $admins->nextPageUrl() }}" aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
+                                                                </ul>
+                                                            </nav>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 
                                                 <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabell" aria-hidden="true">

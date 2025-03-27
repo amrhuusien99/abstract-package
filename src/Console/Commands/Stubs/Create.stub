@@ -104,14 +104,14 @@
     })();
     // $('#$NORMALNAME').select2({
     //     ajax: {
-    //         url: "{{  }}",
+    //         url: "{{ route('get/$NORMALNAME') }}",
     //         dataType: 'json',
     //         processResults: function (data) {
     //             return {
     //                 results:  $.map(data, function (item) {
     //                     return {
     //                         id: item.id,
-    //                         text: item.title
+    //                         text: item.name
     //                     }
     //                 })
     //             };
