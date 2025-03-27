@@ -22,8 +22,8 @@ abstract class AbstractRepository
 
     public function pagination($offset, $limit)
     {
-        // return $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT); 
-        return $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->orderBy('id', 'DESC')->offset($offset)->limit(PAGINATION_COUNT)->get();
+        return $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT); 
+        // return $this->model->with($this->model->model_relations())->withCount($this->model->model_relations_counts())->unArchive()->orderBy('id', 'DESC')->offset($offset)->limit(PAGINATION_COUNT)->get();
     }
 
     public function findOne($id)
